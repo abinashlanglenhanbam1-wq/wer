@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ffd6e7, #d9e8ff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .container {
+        width: 92%;
+        max-width: 500px;
+        text-align: center;
+        background: rgba(255,255,255,0.9);
+        padding: 35px 22px;
+        border-radius: 25px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        position: relative;
+        z-index: 2;
+    }
+
+    h1 {
+        font-size: 42px;
+        color: #ff4f81;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        color: #555;
+        font-size: 17px;
+        margin-bottom: 30px;
+    }
+
+    #tapButton {
+        position: relative;
+        padding: 15px 35px;
+        border: none;
+        border-radius: 50px;
+        background: #ff4f81;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.25s ease;
+        box-shadow: 0 8px 20px rgba(255,79,129,0.35);
+    }
+
+    #tapButton:hover {
+        transform: scale(1.05);
+    }
+
+    #message {
+        display: none;
+        animation: appear 1s ease forwards;
+    }
+
+    #message h2 {
+        color: #ff4f81;
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    #message p {
+        color: #444;
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+    .cake {
+        font-size: 70px;
+        margin-bottom: 15px;
+        animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Confetti */
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 16px;
+        top: -20px;
+        animation: fall linear forwards;
+        z-index: 10;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 34px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+        }
+
+        #message h2 {
+            font-size: 27px;
+        }
+
+        #message p {
+            font-size: 15px;
+        }
+
+        .container {
+            padding: 30px 18px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div id="mainContent">
+
+        <h1>Happy Birthday, Ritu</h1>
+
+        <p class="subtitle">
+            I have something special to tell you...
+        </p>
+
+        <button id="tapButton">Tap Here</button>
+
+    </div>
+
+    <div id="message">
+
+        <div class="cake">🎂</div>
+
+        <h2>Happy Birthday, Ritu!</h2>
+
+        <p>
+            From sitting together and making memories since Class 4
+            to growing up and following our own dreams, it has been
+            a really special journey.
+            <br><br>
+
+            We've known each other for so many years, and I'm genuinely
+            grateful for all the memories, conversations, laughs and
+            moments we've shared.
+            <br><br>
+
+            No matter how busy life gets or how much things change,
+            I hope our friendship always remains special.
+            <br><br>
+
+            Wishing you a beautiful birthday and a year filled with
+            happiness, success and many wonderful memories.
+            <br><br>
+
+            <strong>Happy Birthday once again!</strong>
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+const button = document.getElementById("tapButton");
+const mainContent = document.getElementById("mainContent");
+const message = document.getElementById("message");
+
+let attempts = 0;
+
+/* Move button when clicked */
+button.addEventListener("click", function () {
+
+    attempts++;
+
+    if (attempts <= 2) {
+
+        moveButton();
+
+    } else {
+
+        mainContent.style.display = "none";
+        message.style.display = "block";
+
+        createConfetti();
+
+    }
+
+});
+
+/* Make the button move */
+function moveButton() {
+
+    const maxX = Math.min(window.innerWidth - 180, 250);
+    const maxY = Math.min(window.innerHeight - 100, 250);
+
+    const x = Math.random() * maxX - maxX / 2;
+    const y = Math.random() * maxY - maxY / 2;
+
+    button.style.transform =
+        `translate(${x}px, ${y}px) rotate(${Math.random() * 10 - 5}deg)`;
+}
+
+/* Confetti animation */
+function createConfetti() {
+
+    const colors = [
+        "#ff4f81",
+        "#ffd166",
+        "#06d6a0",
+        "#118ab2",
+        "#8338ec",
+        "#ff9f1c"
+    ];
+
+    for (let i = 0; i < 120; i++) {
+
+        const confetti = document.createElement("div");
+
+        confetti.classList.add("confetti");
+
+        confetti.style.left =
+            Math.random() * 100 + "vw";
+
+        confetti.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+
+        confetti.style.animationDuration =
+            (Math.random() * 3 + 2) + "s";
+
+        confetti.style.animationDelay =
+            Math.random() * 1.5 + "s";
+
+        confetti.style.transform =
+            `rotate(${Math.random() * 360}deg)`;
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 6000);
+    }
+}
+
+</script>
+
+</body>
+</html>
